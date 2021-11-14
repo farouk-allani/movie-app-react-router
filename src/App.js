@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
 
+import "./App.css";
+import { useState , useEffect } from "react";
+import Filter from "./components/Filter/Filter";
+import Movielist from "./components/MoviesList/Movieslist";
+import NavBar from "./components/NavBar/NavBar";
+import { data } from "./data.js";
+import {Container} from "react-bootstrap"
 function App() {
+  
+const [textFilter, setTextFilter] = useState("")
+const [starsRate, setStarsRate] = useState(0)
+
+
+   useEffect(() => {
+   alert("Welcome to my Movies App")
+   }, [])
+
+  const [movies, setMovies] = useState(data);
+
+  const addMovie = (newMovie) => {
+    setMovies([...movies, newMovie]);
+  };
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      
+      <NavBar addMovie={addMovie}/>
+      <Container>
+      <Filter setTextFilter={setTextFilter} setStarsRate={setStarsRate}/>
+      <Movielist movies={movies} textFilter={textFilter} starsRate={starsRate}/>
+      </Container>
     </div>
   );
 }
